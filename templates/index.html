@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Churn Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Add styles for horizontal layout */
+        .radio-group {
+            display: flex;
+            gap: 50px; /* Space between radio buttons */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Churn Prediction</h2>
+        <form action="{{ url_for('predict') }}" method="POST">
+           
+
+            <label for="near_location">Is  GYM Near (Yes or No):</label>
+
+            <select id="near_location" name="near_location" required>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+
+            <label for="partner">Company Sponsored(Partner):</label>
+            <select id="partner" name="partner" required>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+
+            <label for="promo_friends">Refered By Friend:</label>
+            <select id="promo_friends" name="promo_friends" required>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+            <label for="gender">Your Gender:</label>
+            <div class="radio-group">
+                <div>
+                    <label for="male">Male</label> <input type="radio" id="male" name="gender" value="1" required>
+                    
+                </div>
+                
+                <div>
+                    <label for="female">Female</label>  <input type="radio" id="female" name="gender" value="0" required>
+                    
+                </div>
+            </div>
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required placeholder="Example: 0423456789">
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
+
+            <label for="group_visits">Would you like to take part in Group Session:</label>
+            <select id="group_visits" name="group_visits" required>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+
+            <label for="avg_class_frequency_current_week">How Many Days Per Week:</label>
+            <input type="number" step="1" min="0" max="7" id="avg_class_frequency_current_week" name="avg_class_frequency_current_week" placeholder="" required>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction_text %}
+            <p class="result">{{ prediction_text }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
